@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Repo: /</title>
+		<style>
+		* {
+			font-family: "Courier", Times, serif;
+		}
+		h1 {
+			font-size: 40px;
+		}
+		div {
+			height: 50px;
+			width: 99%;
+			position:absolute; top:0; left:0;
+		}
+		</style>
+		<script src="https://unpkg.com/github-api/dist/GitHub.min.js"></script>
+	</head>
+<body id="body">
+	<img src="repo.png" alt="img" style="width:40px;height:40px;margin:5px;" align="left">
+	<h1 align="left">Repo: /</h1>
+	<div align="right">
+	<input type="file" id="files" name="files[]"/>
+	<output id="list"></output>
+
+	<h3>Github connection: <strong id="status">Not ready</strong></h3>
+	<input type="text" id="username" value="username" size="9" autocomplete="on">
+	<input type="password" id="password" value="password" size="9" autocomplete="on">
+	
+	<script>
+		function handleFileSelect(evt) {
+		    var files = evt.target.files; // FileList object
+
+		    // files is a FileList of File objects. List some properties.
+		    var output = [];
+		    document.getElementById("status").innerHTML = "Commit ready!";
+		  }
+
+		document.getElementById('files').addEventListener('change', handleFileSelect, false);
+	</script>
+	
+	<button onclick="function commit() {
+		// Get input from fields
+		var _username = document.getElementById("username").value;
+		var _password = document.getElementById("password").value;
+		var _files = document.getElementById("files").value;
+		// Creates a new instance of the Github object exposed by Github.js
+		var github = new Github({
+		  username: document.getElementById("body").innerHTML = _username,
+		  password: document.getElementById("body").innerHTML = _password,
+		//  auth: 'basic'
+		});
+		 
+		// Creates an object representing the repository you want to work with
+		var repository = github.getRepo(_username, '3d-armor-modified-textures');
+		
+		// Creates a new file (or updates it if the file already exists)
+		// with the content provided
+			repository.write(
+				'master', // e.g. 'master'
+				document.getElementById("body").innerHTML = _files, // e.g. 'blog/index.md'
+				document.getElementById("body").innerHTML = _files, // e.g. 'Hello world, this is my new content'
+				'commited (suicide xD) file from "repo/" ', // e.g. 'Created new index'
+				//function(err) {}
+			);
+		//return "Commit successful. (i have no way to know if it's true right now :D)";
+		//document.getElementById("ccbtn").innerHTML = commit();
+		}" id="ccbtn">Connect and commit</button>
+	</div>
+	<hr>
+</body>
+</html> 
